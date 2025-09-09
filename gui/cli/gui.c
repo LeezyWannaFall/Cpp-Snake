@@ -5,7 +5,7 @@
 
 #include "../../brick_game/tetris/s21_tetris.h"
 
-void drawGame(const GameInfo_t game, const Tetromino current,
+void drawTetris(const GameInfo_t game, const Tetromino current,
               const Tetromino newTetromino);
 
 int main() {
@@ -50,6 +50,12 @@ int main() {
       case 'P':
       case 'p':
         userInput(Pause, false);
+      case 'T':
+      case 't':
+        // chose game: Tetris
+      case 'S':
+      case 's':
+        // chose game: Snake
         break;
     }
 
@@ -69,7 +75,7 @@ int main() {
     Tetromino newTetromino = getNewTetromino();
     Tetromino current = getCurrentTetromino();
     clear();
-    drawGame(game, current, newTetromino);
+    drawTetris(game, current, newTetromino);
     refresh();
     usleep(DELAY);
   }
@@ -78,7 +84,16 @@ int main() {
   return 0;
 }
 
-void drawGame(const GameInfo_t game, const Tetromino current,
+void drawGameMenu() {
+  for (int y = 0; y < FIELD_HEIGHT; y++) {
+    for (int x = 0; x < FIELD_WIDTH; x++) {
+      mvprintw(FIELD_HEIGHT / 2, FIELD_WIDTH, "CHOOSE GAME\n      Tetris\n      Snake\n")
+      // code ...
+    }
+  }
+}
+
+void drawTetris(const GameInfo_t game, const Tetromino current,
               const Tetromino newTetromino) {
   for (int y = 0; y < FIELD_HEIGHT; ++y) {
     for (int x = 0; x < FIELD_WIDTH; ++x) {
