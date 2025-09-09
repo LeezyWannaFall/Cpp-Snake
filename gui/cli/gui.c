@@ -7,6 +7,7 @@
 
 void drawTetris(const GameInfo_t game, const Tetromino current,
               const Tetromino newTetromino);
+int drawGameMenu();
 
 int main() {
   srand(time(NULL));
@@ -19,8 +20,13 @@ int main() {
   curs_set(FALSE);        // скрыть курсор
 
   GameInfo_t game = updateCurrentState();  // START → SPAWN
+  drawGameMenu();
 
+  bool in_tetris = false;
+  
   while (1) {
+    Tetromino newTetromino = getNewTetromino();
+    Tetromino current = getCurrentTetromino();
     int ch = getch();
     switch (ch) {
       case KEY_LEFT:
@@ -52,9 +58,11 @@ int main() {
         userInput(Pause, false);
       case 'T':
       case 't':
-        // chose game: Tetris
+        in_tetris = true;
+        break;
       case 'S':
       case 's':
+      in_tetris = false;
         // chose game: Snake
         break;
     }
@@ -72,11 +80,11 @@ int main() {
       continue;        // не делаем больше ничего
     }
 
-    Tetromino newTetromino = getNewTetromino();
-    Tetromino current = getCurrentTetromino();
-    clear();
-    drawTetris(game, current, newTetromino);
-    refresh();
+    if (in_tetris) {
+      clear();
+      drawTetris(game, current, newTetromino);
+      refresh();
+    }
     usleep(DELAY);
   }
 
@@ -84,11 +92,11 @@ int main() {
   return 0;
 }
 
-void drawGameMenu() {
+int drawGameMenu() {
+  clear();
   for (int y = 0; y < FIELD_HEIGHT; y++) {
     for (int x = 0; x < FIELD_WIDTH; x++) {
-      mvprintw(FIELD_HEIGHT / 2, FIELD_WIDTH, "CHOOSE GAME\n      Tetris\n      Snake\n")
-      // code ...
+      mvprintw(FIELD_HEIGHT / 2, FIELD_WIDTH, "CHOOSE GAME\n      Tetris - Press T to play\n      Snake - Press S to play\n");
     }
   }
 }
