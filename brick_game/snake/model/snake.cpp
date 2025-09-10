@@ -10,9 +10,8 @@ s21::Snake::Snake(int startX, int startY) {
 }
 
 void s21::Snake::Move(bool ateApple) {
-  auto head = snakeBody.front();
-  int x = head.first;
-  int y = head.second;
+  int x = getHead().first;
+  int y = getHead().second;
 
   if (this->dir == Direction::RIGHT) x++;
   if (this->dir == Direction::LEFT) x--;
