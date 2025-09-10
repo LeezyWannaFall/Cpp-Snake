@@ -26,6 +26,13 @@ void s21::Snake::move(bool ateApple) {
   }
 }
 
-void s21::Snake::setDirection(Direction d) {}
+void s21::Snake::setDirection(Direction NewDir) {
+    if (!((this->dir == Direction::RIGHT && NewDir == Direction::LEFT) ||
+    (this->dir == Direction::LEFT && NewDir == Direction::RIGHT) ||
+    (this->dir == Direction::UP && NewDir == Direction::DOWN) ||
+    (this->dir == Direction::DOWN && NewDir == Direction::UP))) {
+        this->dir = NewDir;
+    }
+}
 
 bool s21::Snake::checkCollision(int width, int height) const {}
