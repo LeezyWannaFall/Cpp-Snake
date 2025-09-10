@@ -9,15 +9,15 @@ s21::Snake::Snake(int startX, int startY) {
   }
 }
 
-void s21::Snake::move(bool ateApple) {
+void s21::Snake::Move(bool ateApple) {
   auto head = snakeBody.front();
   int x = head.first;
   int y = head.second;
 
-  if (dir == Direction::RIGHT) x++;
-  if (dir == Direction::LEFT) x--;
-  if (dir == Direction::UP) y--;
-  if (dir == Direction::DOWN) y++;
+  if (this->dir == Direction::RIGHT) x++;
+  if (this->dir == Direction::LEFT) x--;
+  if (this->dir == Direction::UP) y--;
+  if (this->dir == Direction::DOWN) y++;
 
   snakeBody.insert(snakeBody.begin(), {x, y});
 
@@ -26,7 +26,7 @@ void s21::Snake::move(bool ateApple) {
   }
 }
 
-void s21::Snake::setDirection(Direction NewDir) {
+void s21::Snake::SetDirection(Direction NewDir) {
     if (!((this->dir == Direction::RIGHT && NewDir == Direction::LEFT) ||
     (this->dir == Direction::LEFT && NewDir == Direction::RIGHT) ||
     (this->dir == Direction::UP && NewDir == Direction::DOWN) ||

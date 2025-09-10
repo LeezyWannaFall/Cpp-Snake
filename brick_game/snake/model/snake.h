@@ -11,8 +11,8 @@ class Snake {
  public:
   Snake(int startX, int startY);
 
-  void move(bool ateApple);
-  void setDirection(Direction dir);
+  void Move(bool ateApple);
+  void SetDirection(Direction dir);
   bool checkCollision(int width, int height) const;
 
   std::vector<std::pair<int, int>> getBody() const { return snakeBody; }
