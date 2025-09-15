@@ -26,12 +26,22 @@ void s21::Snake::Move(bool ateApple) {
 }
 
 void s21::Snake::SetDirection(Direction NewDir) {
-    if (!((this->dir == Direction::RIGHT && NewDir == Direction::LEFT) ||
-    (this->dir == Direction::LEFT && NewDir == Direction::RIGHT) ||
-    (this->dir == Direction::UP && NewDir == Direction::DOWN) ||
-    (this->dir == Direction::DOWN && NewDir == Direction::UP))) {
-        this->dir = NewDir;
-    }
+  if (!((this->dir == Direction::RIGHT && NewDir == Direction::LEFT) ||
+        (this->dir == Direction::LEFT && NewDir == Direction::RIGHT) ||
+        (this->dir == Direction::UP && NewDir == Direction::DOWN) ||
+        (this->dir == Direction::DOWN && NewDir == Direction::UP)))
+  this->dir = NewDir;
 }
 
-bool s21::Snake::checkCollision(int width, int height) const {}
+bool s21::Snake::checkCollision(int width, int height) const {
+  int x = getHead().first;
+  int y = getHead().second;
+
+  if (x < 0 || x >= width) return true;
+  if (y < 0 || y >= height) return true;
+  
+  for (int i = 1; i < snakeBody.size(); i++) {
+    if (x == snakeBody[i].first && y == snakeBody[i].second) return true;
+  }
+  return false;
+}
