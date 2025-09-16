@@ -50,11 +50,9 @@ GameInfo_t updateCurrentState();
 class Game {
  public:
   Game();
-  ~Game();
 
   void ResetGame();
   void Update();
-  
 
  private:
   Snake snake;
@@ -63,11 +61,6 @@ class Game {
   GameState State;
   UserAction_t Action;
 };
-
-Game::Game(/* args */) {
-
-}
-
 
 } // namespace s21
 
