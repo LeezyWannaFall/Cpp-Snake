@@ -10,17 +10,7 @@
 #include <random>
 #include "snake.h"
 #include "apple.h"
-
-typedef enum {
-  Start,
-  Pause,
-  Terminate,
-  Left,
-  Right,
-  Up,
-  Down,
-  Action
-} UserAction_t;
+#include "../controller/controller.h"
 
 typedef struct {
   int **field;
@@ -44,15 +34,16 @@ typedef enum {
 
 namespace s21 {
 
-void userInput(UserAction_t action, bool hold);
-GameInfo_t updateCurrentState();
-
 class Game {
  public:
   Game();
 
+  void userInput(UserAction_t action, bool hold);
+  GameInfo_t updateCurrentState();
   void ResetGame();
   void Update();
+  void handleInput(UserAction_t);
+  GameInfo_t getInfo() const;
 
  private:
   Snake snake;
