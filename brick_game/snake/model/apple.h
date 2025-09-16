@@ -7,16 +7,16 @@ namespace s21 {
 
 class Apple {
  private:
-    std::pair<int, int> AppleBody;
-    bool Eaten;
+  std::pair<int, int> AppleBody;
+  bool Eaten;
  public:
-    Apple(int x, int y);
+  Apple(int x, int y);
 
-    int getX() { return AppleBody.first; }
-    int getY() { return AppleBody.second; }
-    bool IsEaten();
-    void Respawn(int x, int y);
-    void SetEaten();
+  int getX() { return AppleBody.first; }
+  int getY() { return AppleBody.second; }
+  bool IsEaten();
+  void Respawn(int x, int y);
+  void SetEaten();
 };
 
 

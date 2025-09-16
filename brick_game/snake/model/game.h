@@ -8,6 +8,8 @@
 #include <utility>
 #include <vector>
 #include <random>
+#include "snake.h"
+#include "apple.h"
 
 typedef enum {
   Start,
@@ -40,8 +42,33 @@ typedef enum {
   STATE_GAME_OVER
 } GameState;
 
-void userInput(UserAction_t action, bool hold);
+namespace s21 {
 
+void userInput(UserAction_t action, bool hold);
 GameInfo_t updateCurrentState();
+
+class Game {
+ public:
+  Game();
+  ~Game();
+
+  void ResetGame();
+  void Update();
+  
+
+ private:
+  Snake snake;
+  Apple apple;
+  GameInfo_t Info;
+  GameState State;
+  UserAction_t Action;
+};
+
+Game::Game(/* args */) {
+
+}
+
+
+} // namespace s21
 
 #endif  // GAME_H_
