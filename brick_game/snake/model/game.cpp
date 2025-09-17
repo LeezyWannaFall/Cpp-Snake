@@ -12,6 +12,13 @@ s21::Game::Game() {
     State = STATE_START;
 }
 
+s21::Game::~Game() {
+    for (int i = 0; i < FIELD_HEIGHT; i++) {
+        delete[] Info.field[i];
+    }
+    delete[] Info.field;
+}
+
 void s21::Game::ResetGame() {
 
 }

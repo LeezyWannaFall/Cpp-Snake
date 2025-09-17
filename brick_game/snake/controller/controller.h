@@ -1,6 +1,10 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
+#include "../model/game.h"
+
+namespace s21 {
+
 typedef enum {
   Start,
   Pause,
@@ -15,11 +19,12 @@ typedef enum {
 class Controller {
  private:
     UserAction_t Action;
+    GameState State;
+    Game game;
  public:
     Controller(/* args */);
-    ~Controller();
 
-  void userInput(UserAction_t action, bool hold);
+    void userInput(UserAction_t action, bool hold);
 };
 
 Controller::Controller(/* args */) {
@@ -30,5 +35,6 @@ Controller::~Controller() {
 
 }
 
+} // namespace s21
 
 #endif // CONTROLLER_H_

@@ -12,6 +12,8 @@
 #include "apple.h"
 #include "../controller/controller.h"
 
+namespace s21 {
+
 typedef struct {
   int **field;
   int **next;
@@ -32,11 +34,10 @@ typedef enum {
   STATE_GAME_OVER
 } GameState;
 
-namespace s21 {
-
 class Game {
  public:
   Game();
+  ~Game();
 
   void userInput(UserAction_t action, bool hold);
   GameInfo_t updateCurrentState();
