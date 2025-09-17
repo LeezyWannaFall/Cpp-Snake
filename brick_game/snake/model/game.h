@@ -39,12 +39,13 @@ class Game {
   Game();
   ~Game();
 
-  void userInput(UserAction_t action, bool hold);
-  GameInfo_t updateCurrentState();
+  void SetDirection(Direction NewDir); // Snake method for class Game
   void ResetGame();
-  void Update();
+  void UpdateGame();
   void handleInput(UserAction_t);
-  GameInfo_t getInfo() const;
+  void PauseGame();
+
+  GameInfo_t getInfo() const { return Info; }
 
  private:
   Snake snake;

@@ -19,10 +19,19 @@ s21::Game::~Game() {
     delete[] Info.field;
 }
 
+void s21::Game::SetDirection(Direction NewDir) {
+    snake.SetDirection(NewDir);
+}
+
 void s21::Game::ResetGame() {
 
 }
 
-void s21::Game::Update() {
+void s21::Game::UpdateGame() {
 
 }
+
+void s21::Game::handleInput(UserAction_t) {
+
+}
+

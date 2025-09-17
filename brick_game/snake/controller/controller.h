@@ -18,23 +18,21 @@ typedef enum {
 
 class Controller {
  private:
-    UserAction_t Action;
-    GameState State;
-    Game game;
- public:
-    Controller(/* args */);
+  // UserAction_t action;
+  GameState State;
+  Game game;
 
-    void userInput(UserAction_t action, bool hold);
+ public:
+  Controller(/* args */);
+
+  void userInput(UserAction_t action, bool hold);
+  GameInfo_t updateCurrentState();
 };
 
-Controller::Controller(/* args */) {
+Controller::Controller(/* args */) {}
 
-}
+Controller::~Controller() {}
 
-Controller::~Controller() {
+}  // namespace s21
 
-}
-
-} // namespace s21
-
-#endif // CONTROLLER_H_
+#endif  // CONTROLLER_H_
