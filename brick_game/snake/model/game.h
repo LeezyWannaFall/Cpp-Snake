@@ -5,12 +5,13 @@
 #define FIELD_WIDTH 10
 #define FIELD_HEIGHT 20
 
+#include <random>
 #include <utility>
 #include <vector>
-#include <random>
-#include "snake.h"
-#include "apple.h"
+
 #include "../controller/controller.h"
+#include "apple.h"
+#include "snake.h"
 
 namespace s21 {
 
@@ -39,13 +40,14 @@ class Game {
   Game();
   ~Game();
 
-  void SetDirection(Direction NewDir); // Snake method for class Game
+  void SetDirection(Direction NewDir);  // Snake method for class Game
   void ResetGame();
-  void UpdateGame();
+  void UpdateTimer();
   void handleInput(UserAction_t);
   void PauseGame();
+  GameInfo_t updateCurrentState();
 
-  GameInfo_t getInfo() const { return Info; }
+  // GameInfo_t getInfo() const { return Info; }
 
  private:
   Snake snake;
@@ -55,6 +57,6 @@ class Game {
   UserAction_t Action;
 };
 
-} // namespace s21
+}  // namespace s21
 
 #endif  // GAME_H_

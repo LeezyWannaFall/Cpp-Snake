@@ -9,8 +9,9 @@ class Apple {
  private:
   std::pair<int, int> AppleBody;
   bool Eaten;
+
  public:
-  Apple(int x, int y);
+  Apple();
 
   int getX() { return AppleBody.first; }
   int getY() { return AppleBody.second; }
@@ -19,7 +20,6 @@ class Apple {
   void SetEaten();
 };
 
+}  // namespace s21
 
-} // namespace s21
-
-#endif // APPLE_H_
+#endif  // APPLE_H_

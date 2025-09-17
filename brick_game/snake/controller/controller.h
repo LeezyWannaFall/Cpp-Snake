@@ -25,8 +25,7 @@ class Controller {
  public:
   Controller(/* args */);
 
-  void userInput(UserAction_t action, bool hold);
-  GameInfo_t updateCurrentState();
+  void userInput(UserAction_t action, bool hold);  
 };
 
 Controller::Controller(/* args */) {}

@@ -9,7 +9,7 @@ enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 class Snake {
  public:
-  Snake(int startX, int startY);
+  Snake();
 
   void Move(bool ateApple);
   void SetDirection(Direction dir);
