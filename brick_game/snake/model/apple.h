@@ -16,7 +16,7 @@ class Apple {
   int getX() { return AppleBody.first; }
   int getY() { return AppleBody.second; }
   bool IsEaten();
-  void Respawn(int x, int y);
+  void Respawn();
   void SetEaten();
 };
 

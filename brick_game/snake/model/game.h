@@ -9,6 +9,7 @@
 #include <utility>
 #include <vector>
 #include <chrono>
+#include <thread>
 
 #include "../controller/controller.h"
 #include "apple.h"
@@ -43,7 +44,6 @@ class Game {
 
   void SetDirection(Direction NewDir);  // Snake method for class Game
   void ResetGame();
-  void UpdateTimer();
   void handleInput(UserAction_t);
   void PauseGame();
   GameInfo_t updateCurrentState();
@@ -56,6 +56,9 @@ class Game {
   GameInfo_t Info;
   GameState State;
   UserAction_t Action;
+
+  std::chrono::steady_clock::time_point lastUpdate;
+  int delayMs;
 };
 
 }  // namespace s21

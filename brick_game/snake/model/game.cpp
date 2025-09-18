@@ -5,7 +5,6 @@ s21::Game::Game() {
   for (int i = 0; i < FIELD_HEIGHT; i++) {
     Info.field[i] = new int[FIELD_WIDTH]();
   }
-
 }
 
 s21::Game::~Game() {
@@ -18,15 +17,14 @@ s21::Game::~Game() {
 void s21::Game::SetDirection(Direction NewDir) { snake.SetDirection(NewDir); }
 
 void s21::Game::ResetGame() {
-
   Info.score = 0;
   Info.high_score = 0;
   Info.level = 0;
+  Info.speed = 0;
   Info.pause = 0;
-}
 
-void s21::Game::UpdateTimer() {
-    
+  delayMs = 500;
+  lastUpdate = std::chrono::steady_clock::now();
 }
 
 void s21::Game::handleInput(UserAction_t) {}
@@ -38,16 +36,28 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
     return Info;
   }
 
+  auto now = std::chrono::steady_clock::now();
+  auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastUpdate).count();
+
   switch (State) {
     case STATE_START:
-      Game::ResetGame();
-      State = STATE_SPAWN;
+      ResetGame();
+      State = STATE_MOVE;
       break;
     case STATE_MOVE:
-      bool ateApple = false;
-      snake.Move(ateApple);
-      if (snake.checkCollision(FIELD_WIDTH, FIELD_HEIGHT)) {
-        State = STATE_GAME_OVER;
+      if (elapsed >= delayMs) {
+        bool ateApple = false;
+        snake.Move(ateApple);
+
+        if (apple.IsEaten()) {
+          apple.Respawn();
+        }
+
+        if (snake.checkCollision(FIELD_WIDTH, FIELD_HEIGHT)) {
+          State = STATE_GAME_OVER;
+        }
+        
+        lastUpdate = now;
       }
       break;
     case STATE_GAME_OVER:
