@@ -6,10 +6,6 @@ s21::Game::Game() {
     Info.field[i] = new int[FIELD_WIDTH]();
   }
 
-  Info.score = 0;
-  Info.high_score = 0;
-  Info.level = 0;
-  State = STATE_START;
 }
 
 s21::Game::~Game() {
@@ -21,9 +17,17 @@ s21::Game::~Game() {
 
 void s21::Game::SetDirection(Direction NewDir) { snake.SetDirection(NewDir); }
 
-void s21::Game::ResetGame() {}
+void s21::Game::ResetGame() {
 
-void s21::Game::UpdateTimer() {}
+  Info.score = 0;
+  Info.high_score = 0;
+  Info.level = 0;
+  Info.pause = 0;
+}
+
+void s21::Game::UpdateTimer() {
+    
+}
 
 void s21::Game::handleInput(UserAction_t) {}
 
@@ -36,7 +40,7 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
 
   switch (State) {
     case STATE_START:
-      // field init
+      Game::ResetGame();
       State = STATE_SPAWN;
       break;
     case STATE_MOVE:
