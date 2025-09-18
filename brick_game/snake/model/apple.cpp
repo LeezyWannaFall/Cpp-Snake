@@ -20,6 +20,7 @@ void s21::Apple::Respawn() {
   // TODO: check if apple spawn in clear place
   AppleBody.first = distX(gen);
   AppleBody.second = distY(gen);
+  Eaten = false;
 }
 
 void s21::Apple::SetEaten() { Eaten = true; }
