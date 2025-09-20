@@ -27,10 +27,6 @@ void s21::Game::ResetGame() {
   lastUpdate = std::chrono::steady_clock::now();
 }
 
-void s21::Game::handleInput(UserAction_t) {}
-
-void s21::Game::PauseGame() {}
-
 s21::GameInfo_t s21::Game::updateCurrentState() {
   if (State == STATE_PAUSE) {
     return Info;
@@ -61,6 +57,7 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
       }
       break;
     case STATE_GAME_OVER:
+      Info.pause = -1;
       break;
     default:
       break;

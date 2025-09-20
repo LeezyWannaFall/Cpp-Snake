@@ -18,7 +18,10 @@ void s21::Controller::userInput(UserAction_t action, bool hold) {
         game.SetDirection(Direction::DOWN);
         break;
       case Pause:
-        game.PauseGame();
+        State = STATE_PAUSE;
+        if (State == STATE_PAUSE) {
+          State = STATE_MOVE;
+        }
         break;
       default: 
         break;
