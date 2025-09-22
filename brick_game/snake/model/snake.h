@@ -11,8 +11,10 @@ class Snake {
  public:
   Snake();
 
-  void Move(bool ateApple);
+  void Move();                 // просто двигается
+  void Grow();                 // увеличивается на 1 сегмент
   void SetDirection(Direction dir);
+
   bool checkCollision(int width, int height) const;
 
   std::vector<std::pair<int, int>> getBody() const { return snakeBody; }
@@ -23,6 +25,7 @@ class Snake {
   Direction dir;
   bool alive;
 };
+
 
 }  // namespace s21
 

@@ -42,19 +42,24 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
       break;
     case STATE_MOVE:
       if (elapsed >= delayMs) {
-        bool ateApple = false;
-        snake.Move(ateApple);
+        snake.Move();
 
-        if (apple.IsEaten()) {
+        // проверяем: съела ли змея яблоко?
+        if (snake.getHead() == apple.getPosition()) {
+          snake.Grow();
           apple.Respawn();
+          Info.score += 10;
         }
+
+        lastUpdate = now;
 
         if (snake.checkCollision(FIELD_WIDTH, FIELD_HEIGHT)) {
           State = STATE_GAME_OVER;
         }
-        
-        lastUpdate = now;
       }
+      break;
+    case STATE_PAUSE:
+      Info.pause = 1;
       break;
     case STATE_GAME_OVER:
       Info.pause = -1;

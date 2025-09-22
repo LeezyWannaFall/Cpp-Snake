@@ -23,14 +23,10 @@ class Controller {
   Game game;
 
  public:
-  Controller(/* args */);
-
-  void userInput(UserAction_t action, bool hold);  
+  Controller();
+  void userInput(UserAction_t action, bool hold);
+  GameState getState() const { return State; }
 };
-
-Controller::Controller(/* args */) {}
-
-Controller::~Controller() {}
 
 }  // namespace s21
 

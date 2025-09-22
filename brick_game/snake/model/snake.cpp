@@ -9,28 +9,38 @@ s21::Snake::Snake() {
   }
 }
 
-void s21::Snake::Move(bool ateApple) {
+void s21::Snake::Move() {
   int x = getHead().first;
   int y = getHead().second;
 
-  if (this->dir == Direction::RIGHT) x++;
-  if (this->dir == Direction::LEFT) x--;
-  if (this->dir == Direction::UP) y--;
-  if (this->dir == Direction::DOWN) y++;
+  if (dir == Direction::RIGHT) x++;
+  if (dir == Direction::LEFT) x--;
+  if (dir == Direction::UP) y--;
+  if (dir == Direction::DOWN) y++;
 
+  // добавляем новую голову
   snakeBody.insert(snakeBody.begin(), {x, y});
 
-  if (!ateApple) {
-    snakeBody.pop_back();
-  }
+  // удаляем хвост (движение без роста)
+  snakeBody.pop_back();
 }
 
+void s21::Snake::Grow() {
+  // Просто НЕ удаляем хвост при следующем Move()
+  // Трюк: можно добавить "флаг роста" и проверять его в Move()
+  // Но проще: добавить ещё один сегмент прямо сейчас:
+  snakeBody.push_back(snakeBody.back());
+}
+
+
 void s21::Snake::SetDirection(Direction NewDir) {
-  if (!((this->dir == Direction::RIGHT && NewDir == Direction::LEFT) ||
-        (this->dir == Direction::LEFT && NewDir == Direction::RIGHT) ||
-        (this->dir == Direction::UP && NewDir == Direction::DOWN) ||
-        (this->dir == Direction::DOWN && NewDir == Direction::UP)))
-    this->dir = NewDir;
+  if ((dir == Direction::UP && NewDir == Direction::DOWN) ||
+      (dir == Direction::DOWN && NewDir == Direction::UP) ||
+      (dir == Direction::LEFT && NewDir == Direction::RIGHT) ||
+      (dir == Direction::RIGHT && NewDir == Direction::LEFT)) {
+    return;
+  }
+  dir = NewDir;
 }
 
 bool s21::Snake::checkCollision(int width, int height) const {

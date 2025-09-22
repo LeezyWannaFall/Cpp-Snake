@@ -5,14 +5,17 @@
 
 namespace s21 {
 
+using Position = std::pair<int, int>;
+
 class Apple {
  private:
-  std::pair<int, int> AppleBody;
+  Position AppleBody;
   bool Eaten;
 
  public:
   Apple();
 
+  Position getPosition() { return AppleBody; }
   int getX() { return AppleBody.first; }
   int getY() { return AppleBody.second; }
   bool IsEaten();
