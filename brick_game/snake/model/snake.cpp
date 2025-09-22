@@ -18,17 +18,12 @@ void s21::Snake::Move() {
   if (dir == Direction::UP) y--;
   if (dir == Direction::DOWN) y++;
 
-  // добавляем новую голову
   snakeBody.insert(snakeBody.begin(), {x, y});
 
-  // удаляем хвост (движение без роста)
   snakeBody.pop_back();
 }
 
 void s21::Snake::Grow() {
-  // Просто НЕ удаляем хвост при следующем Move()
-  // Трюк: можно добавить "флаг роста" и проверять его в Move()
-  // Но проще: добавить ещё один сегмент прямо сейчас:
   snakeBody.push_back(snakeBody.back());
 }
 

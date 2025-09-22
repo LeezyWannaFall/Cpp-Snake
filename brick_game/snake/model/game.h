@@ -45,7 +45,8 @@ class Game {
   void SetDirection(Direction NewDir);  // Snake method for class Game
   void ResetGame();
   GameInfo_t updateCurrentState();
-
+  GameState getGameState() const { return State; }
+  void setGameState(GameState newState) { State = newState; }
   // GameInfo_t getInfo() const { return Info; }
 
  private:

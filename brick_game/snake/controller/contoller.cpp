@@ -3,7 +3,7 @@
 s21::Controller::Controller() : State(STATE_START), game() {}
 
 void s21::Controller::userInput(UserAction_t action, bool hold) {
-  if (State == STATE_MOVE) {
+  if (game.getGameState() == STATE_MOVE) {
     bool ateApple = false;
     
     switch (action) {
@@ -20,9 +20,10 @@ void s21::Controller::userInput(UserAction_t action, bool hold) {
         game.SetDirection(Direction::DOWN);
         break;
       case Pause:
-        State = STATE_PAUSE;
-        if (State == STATE_PAUSE) {
-          State = STATE_MOVE;
+        if (game.getGameState() == STATE_MOVE) {
+          game.setGameState(STATE_PAUSE);
+        } else if (game.getGameState() == STATE_PAUSE) {
+          game.setGameState(STATE_MOVE);
         }
         break;
       default: 
