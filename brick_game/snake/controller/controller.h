@@ -18,14 +18,12 @@ typedef enum {
 
 class Controller {
  private:
-  // UserAction_t action;
-  GameState State;
   Game game;
 
  public:
   Controller();
   void userInput(UserAction_t action, bool hold);
-  GameState getState() const { return State; }
+  Game& getGame() { return game; }
 };
 
 }  // namespace s21

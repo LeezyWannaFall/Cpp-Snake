@@ -1,11 +1,9 @@
 #include "controller.h"
 
-s21::Controller::Controller() : State(STATE_START), game() {}
+s21::Controller::Controller() : game() {}
 
 void s21::Controller::userInput(UserAction_t action, bool hold) {
   if (game.getGameState() == STATE_MOVE) {
-    bool ateApple = false;
-    
     switch (action) {
       case Left:
         game.SetDirection(Direction::LEFT);
