@@ -113,8 +113,6 @@ int main() {
     } else if (mode == GAME_SNAKE && in_tetris) {
       // переключаемся в змейку
       in_tetris = false;
-      freeField();
-      freeNext();
       game = updateCurrentState();  // START → SPAWN
     }
 
@@ -131,7 +129,7 @@ int main() {
       // змейки и яблока
     }
 
-    if (game.pause == -1) {
+    if (game.pause == -1 || (snake_game && game_get_pause(snake_game) == -1)) {
       clear();
       mvprintw(FIELD_HEIGHT / 2, FIELD_WIDTH,
                "GAME OVER\n      Your score: %d\n      Your highscore: %d\n    "

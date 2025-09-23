@@ -17,6 +17,7 @@ void game_set_direction(GameHandle g, int dir); // сменить направл
 
 // данные для отрисовки
 int game_get_score(GameHandle g);
+int game_get_pause(GameHandle g);
 int game_get_snake_length(GameHandle g);
 
 // получаем тело змейки (x,y пары)

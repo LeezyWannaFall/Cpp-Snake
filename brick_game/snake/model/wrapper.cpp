@@ -23,6 +23,10 @@ int game_get_score(GameHandle g) {
     return static_cast<Game*>(g)->getInfo().score;
 }
 
+int game_get_pause(GameHandle g) {
+    return static_cast<Game*>(g)->getInfo().pause;
+}
+
 int game_get_snake_length(GameHandle g) {
     return static_cast<Game*>(g)->getSnake().getBody().size();
 }
