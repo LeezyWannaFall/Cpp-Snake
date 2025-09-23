@@ -1,11 +1,11 @@
 #ifndef SNAKE_H_
 #define SNAKE_H_
 
-#include "game.h"
+#include "../common/direction.h"
+
+#include <vector>
 
 namespace s21 {
-
-enum class Direction { UP, DOWN, LEFT, RIGHT };
 
 class Snake {
  public:
@@ -19,6 +19,7 @@ class Snake {
 
   std::vector<std::pair<int, int>> getBody() const { return snakeBody; }
   std::pair<int, int> getHead() const { return snakeBody.front(); }
+  
 
  private:
   std::vector<std::pair<int, int>> snakeBody;

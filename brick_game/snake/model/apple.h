@@ -1,7 +1,11 @@
 #ifndef APPLE_H_
 #define APPLE_H_
 
-#include "game.h"
+#include <random>
+#include <utility>
+#include <chrono>
+#define FIELD_WIDTH 10
+#define FIELD_HEIGHT 20
 
 namespace s21 {
 
@@ -15,7 +19,7 @@ class Apple {
  public:
   Apple();
 
-  Position getPosition() { return AppleBody; }
+  Position getPosition() const { return AppleBody; }
   int getX() { return AppleBody.first; }
   int getY() { return AppleBody.second; }
   bool IsEaten();

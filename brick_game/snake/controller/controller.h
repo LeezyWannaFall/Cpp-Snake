@@ -2,28 +2,21 @@
 #define CONTROLLER_H_
 
 #include "../model/game.h"
+#include "../common/user_action.h"
 
 namespace s21 {
 
-typedef enum {
-  Start,
-  Pause,
-  Terminate,
-  Left,
-  Right,
-  Up,
-  Down,
-  Action
-} UserAction_t;
+class Game;
 
 class Controller {
  private:
-  Game game;
+  Game* game;
 
  public:
   Controller();
+  ~Controller();
   void userInput(UserAction_t action, bool hold);
-  Game& getGame() { return game; }
+  Game& getGame() { return *game; }
 };
 
 }  // namespace s21

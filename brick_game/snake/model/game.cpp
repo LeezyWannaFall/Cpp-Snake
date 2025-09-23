@@ -18,7 +18,6 @@ void s21::Game::SetDirection(Direction NewDir) { snake.SetDirection(NewDir); }
 
 void s21::Game::ResetGame() {
   Info.score = 0;
-  Info.high_score = 0;
   Info.level = 0;
   Info.speed = 0;
   Info.pause = 0;
@@ -43,6 +42,7 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
     case STATE_MOVE:
       if (elapsed >= delayMs) {
         snake.Move();
+        lastUpdate = now;
 
         // проверяем: съела ли змея яблоко?
         if (snake.getHead() == apple.getPosition()) {
@@ -51,11 +51,10 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
           Info.score += 10;
         }
 
-        lastUpdate = now;
-
         if (snake.checkCollision(FIELD_WIDTH, FIELD_HEIGHT)) {
           State = STATE_GAME_OVER;
         }
+
       }
       break;
     case STATE_PAUSE:
@@ -67,5 +66,21 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
     default:
       break;
   }
+  
+  // чистим поле
+  for (int y = 0; y < FIELD_HEIGHT; y++) {
+    for (int x = 0; x < FIELD_WIDTH; x++) {
+      Info.field[y][x] = 0;
+    }
+  }
+
+  // ставим змейку
+  for (auto &part : snake.getBody()) {
+    Info.field[part.second][part.first] = 1; // 1 = змейка
+  }
+
+  // ставим яблоко
+  Info.field[apple.getY()][apple.getX()] = 2; // 2 = яблоко
+
   return Info;
 }

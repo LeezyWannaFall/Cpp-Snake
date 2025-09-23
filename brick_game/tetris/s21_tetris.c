@@ -128,9 +128,9 @@ void spawnCurrentTetromino() {
  Initialize the game field and next tetromino field
 */
 void initField(void) {
-  game.field = malloc(FIELD_HEIGHT * sizeof(int *));
+  game.field = (int**)malloc(FIELD_HEIGHT * sizeof(int *));
   for (int i = 0; i < FIELD_HEIGHT; ++i) {
-    game.field[i] = calloc(FIELD_WIDTH, sizeof(int));
+    game.field[i] = (int*)calloc(FIELD_WIDTH, sizeof(int));
   }
 
   game.score = 0;
@@ -139,9 +139,9 @@ void initField(void) {
   game.pause = 0;
   game.high_score = loadHighScore();
 
-  game.next = malloc(TETROMINO_SIZE * sizeof(int *));
+  game.next = (int**)malloc(TETROMINO_SIZE * sizeof(int *));
   for (int i = 0; i < TETROMINO_SIZE; ++i) {
-    game.next[i] = calloc(TETROMINO_SIZE, sizeof(int));
+    game.next[i] = (int*)calloc(TETROMINO_SIZE, sizeof(int));
   }
 
   for (int i = 0; i < QUEUE_SIZE; ++i) {

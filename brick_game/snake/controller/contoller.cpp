@@ -2,26 +2,28 @@
 
 s21::Controller::Controller() : game() {}
 
+s21::Controller::~Controller() { delete game; }
+
 void s21::Controller::userInput(UserAction_t action, bool hold) {
-  if (game.getGameState() == STATE_MOVE) {
+  if (game->getGameState() == STATE_MOVE) {
     switch (action) {
       case Left:
-        game.SetDirection(Direction::LEFT);
+        game->SetDirection(Direction::LEFT);
         break;
       case Right:
-        game.SetDirection(Direction::RIGHT);
+        game->SetDirection(Direction::RIGHT);
         break;
       case Up:
-        game.SetDirection(Direction::UP);
+        game->SetDirection(Direction::UP);
         break;
       case Down:
-        game.SetDirection(Direction::DOWN);
+        game->SetDirection(Direction::DOWN);
         break;
       case Pause:
-        if (game.getGameState() == STATE_MOVE) {
-          game.setGameState(STATE_PAUSE);
-        } else if (game.getGameState() == STATE_PAUSE) {
-          game.setGameState(STATE_MOVE);
+        if (game->getGameState() == STATE_MOVE) {
+          game->setGameState(STATE_PAUSE);
+        } else if (game->getGameState() == STATE_PAUSE) {
+          game->setGameState(STATE_MOVE);
         }
         break;
       default: 

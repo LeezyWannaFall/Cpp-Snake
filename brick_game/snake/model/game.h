@@ -2,16 +2,12 @@
 #define GAME_H_
 
 #define LEN 4
-#define FIELD_WIDTH 10
-#define FIELD_HEIGHT 20
 
-#include <random>
-#include <utility>
-#include <vector>
-#include <chrono>
-#include <thread>
+// #include <thread>
 
 #include "../controller/controller.h"
+#include "../common/user_action.h"
+#include "../common/direction.h"
 #include "apple.h"
 #include "snake.h"
 
@@ -47,7 +43,10 @@ class Game {
   GameInfo_t updateCurrentState();
   GameState getGameState() const { return State; }
   void setGameState(GameState newState) { State = newState; }
-  // GameInfo_t getInfo() const { return Info; }
+  GameInfo_t getInfo() const { return Info; }
+  const Snake& getSnake() const { return snake; }
+  const Apple& getApple() const { return apple; }
+  // const UserAction_t getAction() const { return Action; }
 
  private:
   Snake snake;
