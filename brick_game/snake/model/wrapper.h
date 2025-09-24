@@ -18,7 +18,13 @@ void game_set_direction(GameHandle g, int dir);  // сменить направ�
 // данные для отрисовки
 int game_get_score(GameHandle g);
 int game_get_pause(GameHandle g);
+int game_get_high_score(GameHandle g);
+int game_get_level(GameHandle g);
+int game_get_speed(GameHandle g);
+int game_get_state(GameHandle g);
 int game_get_snake_length(GameHandle g);
+void game_toggle_pause(void* g);
+void game_restart(void* g);
 
 // получаем тело змейки (x,y пары)
 // bufSize — сколько элементов можно положить

@@ -18,12 +18,35 @@ int game_get_score(GameHandle g) {
   return static_cast<Game*>(g)->getInfo().score;
 }
 
+int game_get_high_score(GameHandle g) {
+  return static_cast<Game*>(g)->getInfo().high_score;
+}
+
+int game_get_level(GameHandle g) {
+  return static_cast<Game*>(g)->getInfo().level;
+}
+
+int game_get_speed(GameHandle g) {
+  return static_cast<Game*>(g)->getInfo().speed;
+}
+
 int game_get_pause(GameHandle g) {
   return static_cast<Game*>(g)->getInfo().pause;
 }
 
 int game_get_snake_length(GameHandle g) {
   return static_cast<Game*>(g)->getSnake().getBody().size();
+}
+
+int game_get_state(GameHandle g) {
+  return static_cast<int>(static_cast<Game*>(g)->getGameState());
+}
+
+void game_restart(void* g) {
+  auto* game = static_cast<s21::Game*>(g);
+  game->ResetGame();
+  game->setGameState(STATE_START);
+  game->updateCurrentState(); // чтобы сразу начать игру
 }
 
 int game_get_snake_body(GameHandle g, int* buffer, int bufSize) {
@@ -40,4 +63,13 @@ void game_get_apple(GameHandle g, int* x, int* y) {
   auto a = static_cast<Game*>(g)->getApple().getPosition();
   *x = a.first;
   *y = a.second;
+}
+
+void game_toggle_pause(void* g) {
+  auto* game = static_cast<s21::Game*>(g);
+  if (game->getGameState() == STATE_MOVE) {
+    game->setGameState(STATE_PAUSE);
+  } else if (game->getGameState() == STATE_PAUSE) {
+    game->setGameState(STATE_MOVE);
+  }
 }

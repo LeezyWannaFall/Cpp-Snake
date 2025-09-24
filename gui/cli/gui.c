@@ -78,13 +78,19 @@ int main() {
         break;
       case 'R':
       case 'r':
-        userInput(Restart, false);
+        if (mode == GAME_SNAKE) {
+          game_restart(snake_game);
+        } else if (mode == GAME_TETRIS) {
+          userInput(Restart, false); // старая логика для тетриса
+        }
         break;
       case 'P':
       case 'p':
-        if (mode == GAME_TETRIS) {
+        if (mode == GAME_TETRIS)
           userInput(Pause, false);
-        }
+        else if (mode == GAME_SNAKE && snake_game)
+          game_toggle_pause(snake_game); // 4 = STATE_PAUSE
+        break;
       case 'T':
       case 't':
         mode = GAME_TETRIS;
@@ -198,11 +204,11 @@ void drawSnake(GameHandle snake_game) {
   // справа пишем инфу
   int info_x = FIELD_WIDTH * 2 + 4;
   mvprintw(1, info_x, "=== SNAKE ===");
-  mvprintw(2, info_x, "Score:      %d", game.score);
-  mvprintw(3, info_x, "High Score: %d", game.high_score);
-  mvprintw(4, info_x, "Level:      %d", game.level);
+  mvprintw(2, info_x, "Score:      %d", game_get_score(snake_game));
+  mvprintw(3, info_x, "High Score: %d", game_get_high_score(snake_game));
+  mvprintw(4, info_x, "Level:      %d", game_get_level(snake_game));
 
-  if (game.pause) mvprintw(6, info_x, "=== PAUSED ===");
+  // if (game_get_state(snake_game) == STATE_PAUSE) mvprintw(6, info_x, "=== PAUSED ===");
 
   refresh();
 }

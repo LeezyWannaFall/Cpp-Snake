@@ -18,12 +18,14 @@ void s21::Game::SetDirection(Direction NewDir) { snake.SetDirection(NewDir); }
 
 void s21::Game::ResetGame() {
   Info.score = 0;
-  Info.level = 0;
+  Info.level = 1;
   Info.speed = 0;
   Info.pause = 0;
 
-  delayMs = 500;
+  delayMs = 300;
   lastUpdate = std::chrono::steady_clock::now();
+  snake = Snake();
+  apple = Apple();
 }
 
 s21::GameInfo_t s21::Game::updateCurrentState() {

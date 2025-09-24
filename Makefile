@@ -3,7 +3,7 @@ CFLAGS = -g
 LDFLAGS = -lncurses -lcheck -lm -lsubunit
 GCOV_FLAGS = -fprofile-arcs -ftest-coverage
 
-EXE_NAME = tetris
+EXE_NAME = brick_game_cli
 
 SNAKE_LIB_NAME = libsnake.a
 SNAKE_SRC = brick_game/snake/model/wrapper.cpp \
