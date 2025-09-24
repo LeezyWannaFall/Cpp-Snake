@@ -3,8 +3,6 @@
 
 #define LEN 4
 
-// #include <thread>
-
 #include "../controller/controller.h"
 #include "../common/user_action.h"
 #include "../common/direction.h"

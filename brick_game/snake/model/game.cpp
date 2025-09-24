@@ -44,14 +44,13 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
         snake.Move();
         lastUpdate = now;
 
-        // проверяем: съела ли змея яблоко?
         if (snake.getHead() == apple.getPosition()) {
           snake.Grow();
           apple.Respawn();
           Info.score += 10;
         }
 
-        if (snake.checkCollision(FIELD_WIDTH, FIELD_HEIGHT)) {
+        if (!snake.isAlive()) {
           State = STATE_GAME_OVER;
         }
 

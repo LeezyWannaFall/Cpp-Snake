@@ -18,9 +18,13 @@ void s21::Snake::Move() {
   if (dir == Direction::UP) y--;
   if (dir == Direction::DOWN) y++;
 
-  snakeBody.insert(snakeBody.begin(), {x, y});
-
-  snakeBody.pop_back();
+  if (checkCollision(10, 20, x, y)) {
+    alive = false;
+    return;
+  } else {
+    snakeBody.insert(snakeBody.begin(), {x, y});
+    snakeBody.pop_back();
+  }
 }
 
 void s21::Snake::Grow() {
@@ -38,10 +42,7 @@ void s21::Snake::SetDirection(Direction NewDir) {
   dir = NewDir;
 }
 
-bool s21::Snake::checkCollision(int width, int height) const {
-  int x = getHead().first;
-  int y = getHead().second;
-
+bool s21::Snake::checkCollision(int width, int height, int x, int y) const {
   if (x < 0 || x >= width) return true;
   if (y < 0 || y >= height) return true;
 

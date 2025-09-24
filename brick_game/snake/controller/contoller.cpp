@@ -26,7 +26,7 @@ void s21::Controller::userInput(UserAction_t action, bool hold) {
           game->setGameState(STATE_MOVE);
         }
         break;
-      default: 
+      default:
         break;
     }
   }

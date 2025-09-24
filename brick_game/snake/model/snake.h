@@ -14,9 +14,8 @@ class Snake {
   void Move();                 // просто двигается
   void Grow();                 // увеличивается на 1 сегмент
   void SetDirection(Direction dir);
-
-  bool checkCollision(int width, int height) const;
-
+  bool checkCollision(int width, int height, int x, int y) const;
+  bool isAlive() const { return alive; }
   std::vector<std::pair<int, int>> getBody() const { return snakeBody; }
   std::pair<int, int> getHead() const { return snakeBody.front(); }
   

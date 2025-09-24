@@ -12,8 +12,8 @@ typedef void* GameHandle;
 GameHandle game_create();
 void game_destroy(GameHandle g);
 
-void game_update(GameHandle g);   // обновить состояние игры
-void game_set_direction(GameHandle g, int dir); // сменить направление
+void game_update(GameHandle g);  // обновить состояние игры
+void game_set_direction(GameHandle g, int dir);  // сменить направление
 
 // данные для отрисовки
 int game_get_score(GameHandle g);
@@ -33,4 +33,3 @@ void game_get_apple(GameHandle g, int* x, int* y);
 #endif
 
 #endif  // WRAPPER_H_
-
