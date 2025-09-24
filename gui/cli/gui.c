@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "../../brick_game/snake/model/wrapper.h"
+#include "../../brick_game/snake/controller/wrapper.h"
 #include "../../brick_game/tetris/s21_tetris.h"
 
 void drawTetris(const GameInfo_t game, const Tetromino current,

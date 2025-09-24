@@ -1,6 +1,6 @@
 #include "wrapper.h"
 
-#include "game.h"
+#include "../model/game.h"
 
 using namespace s21;
 

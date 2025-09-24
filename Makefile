@@ -6,7 +6,7 @@ GCOV_FLAGS = -fprofile-arcs -ftest-coverage
 EXE_NAME = brick_game_cli
 
 SNAKE_LIB_NAME = libsnake.a
-SNAKE_SRC = brick_game/snake/model/wrapper.cpp \
+SNAKE_SRC = brick_game/snake/controller/wrapper.cpp \
             brick_game/snake/model/game.cpp \
 			brick_game/snake/model/snake.cpp \
 			brick_game/snake/model/apple.cpp \
