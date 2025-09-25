@@ -27,10 +27,7 @@ void s21::Snake::Move() {
   }
 }
 
-void s21::Snake::Grow() {
-  snakeBody.push_back(snakeBody.back());
-}
-
+void s21::Snake::Grow() { snakeBody.push_back(snakeBody.back()); }
 
 void s21::Snake::SetDirection(Direction NewDir) {
   if ((dir == Direction::UP && NewDir == Direction::DOWN) ||

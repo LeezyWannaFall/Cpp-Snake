@@ -23,7 +23,6 @@ int main() {
   curs_set(FALSE);        // скрыть курсор
 
   GameInfo_t game = updateCurrentState();  // START → SPAWN
-  drawGameMenu();
   GameMode mode = MENU;
   GameHandle snake_game = NULL;
 
@@ -119,7 +118,7 @@ int main() {
     } else if (mode == GAME_SNAKE && in_tetris) {
       // переключаемся в змейку
       in_tetris = false;
-      game = updateCurrentState();  // START → SPAWN
+      game_restart(snake_game); // START → SPAWN
     }
 
     if (in_tetris) {

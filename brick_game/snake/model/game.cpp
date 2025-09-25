@@ -1,7 +1,7 @@
 #include "game.h"
 
 s21::Game::Game() {
-  Info.field = new int*[FIELD_HEIGHT];
+  Info.field = new int *[FIELD_HEIGHT];
   for (int i = 0; i < FIELD_HEIGHT; i++) {
     Info.field[i] = new int[FIELD_WIDTH]();
   }
@@ -22,7 +22,7 @@ void s21::Game::ResetGame() {
   Info.speed = 0;
   Info.pause = 0;
 
-  delayMs = 300;
+  delayMs = 400;
   lastUpdate = std::chrono::steady_clock::now();
   snake = Snake();
   apple = Apple();
@@ -34,7 +34,9 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
   }
 
   auto now = std::chrono::steady_clock::now();
-  auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastUpdate).count();
+  auto elapsed =
+      std::chrono::duration_cast<std::chrono::milliseconds>(now - lastUpdate)
+          .count();
 
   switch (State) {
     case STATE_START:
@@ -48,14 +50,13 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
 
         if (snake.getHead() == apple.getPosition()) {
           snake.Grow();
-          apple.Respawn();
+          apple.Respawn(snake.getBody());
           Info.score += 10;
         }
 
         if (!snake.isAlive()) {
           State = STATE_GAME_OVER;
         }
-
       }
       break;
     case STATE_PAUSE:
@@ -67,7 +68,7 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
     default:
       break;
   }
-  
+
   // чистим поле
   for (int y = 0; y < FIELD_HEIGHT; y++) {
     for (int x = 0; x < FIELD_WIDTH; x++) {
@@ -77,11 +78,11 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
 
   // ставим змейку
   for (auto &part : snake.getBody()) {
-    Info.field[part.second][part.first] = 1; // 1 = змейка
+    Info.field[part.second][part.first] = 1;  // 1 = змейка
   }
 
   // ставим яблоко
-  Info.field[apple.getY()][apple.getX()] = 2; // 2 = яблоко
+  Info.field[apple.getY()][apple.getX()] = 2;  // 2 = яблоко
 
   return Info;
 }

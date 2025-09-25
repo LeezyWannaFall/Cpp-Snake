@@ -1,9 +1,9 @@
 #ifndef APPLE_H_
 #define APPLE_H_
 
+#include <chrono>
 #include <random>
 #include <utility>
-#include <chrono>
 #define FIELD_WIDTH 10
 #define FIELD_HEIGHT 20
 
@@ -23,7 +23,7 @@ class Apple {
   int getX() { return AppleBody.first; }
   int getY() { return AppleBody.second; }
   bool IsEaten();
-  void Respawn();
+  void Respawn(const std::vector<std::pair<int, int>>& snakeBody);
   void SetEaten();
 };
 

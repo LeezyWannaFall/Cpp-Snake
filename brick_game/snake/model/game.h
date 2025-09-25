@@ -3,17 +3,17 @@
 
 #define LEN 4
 
-#include "../controller/controller.h"
-#include "../common/user_action.h"
 #include "../common/direction.h"
+#include "../common/user_action.h"
+#include "../controller/controller.h"
 #include "apple.h"
 #include "snake.h"
 
 namespace s21 {
 
 typedef struct {
-  int **field;
-  int **next;
+  int** field;
+  int** next;
   int score;
   int high_score;
   int level;
