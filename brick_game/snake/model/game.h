@@ -44,7 +44,8 @@ class Game {
   GameInfo_t getInfo() const { return Info; }
   const Snake& getSnake() const { return snake; }
   const Apple& getApple() const { return apple; }
-  // const UserAction_t getAction() const { return Action; }
+  void saveHighScore(int high_score);
+  int loadHighScore();
 
  private:
   Snake snake;

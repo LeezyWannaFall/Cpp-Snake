@@ -68,7 +68,7 @@ int loadHighScore() {
  Save highscore to highscore.txt
 */
 void saveHighScore(int highscore) {
-  FILE *f = fopen("highscore.txt", "w");
+  FILE *f = fopen("highscore_tetris.txt", "w");
   if (f) {
     fprintf(f, "%d\n", highscore);
     fclose(f);

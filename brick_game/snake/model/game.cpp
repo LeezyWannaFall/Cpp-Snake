@@ -16,13 +16,32 @@ s21::Game::~Game() {
 
 void s21::Game::SetDirection(Direction NewDir) { snake.SetDirection(NewDir); }
 
+void s21::Game::saveHighScore(int high_score) {
+  FILE *f = fopen("highscore_snake.txt", "w");
+  if (f) {
+    fprintf(f, "%d\n", high_score);
+    fclose(f);
+  }
+}
+
+int s21::Game::loadHighScore() {
+  int highscore = 0;
+  FILE *f = fopen("highscore_snake.txt", "r");
+  if (f) {
+    fscanf(f, "%d", &highscore);
+    fclose(f);
+  }
+  return highscore;
+}
+
 void s21::Game::ResetGame() {
   Info.score = 0;
   Info.level = 1;
   Info.speed = 0;
   Info.pause = 0;
+  Info.high_score = loadHighScore();
 
-  delayMs = 400;
+  delayMs = 500;
   lastUpdate = std::chrono::steady_clock::now();
   snake = Snake();
   apple = Apple();
@@ -51,11 +70,20 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
         if (snake.getHead() == apple.getPosition()) {
           snake.Grow();
           apple.Respawn(snake.getBody());
-          Info.score += 10;
+          Info.score += 1;
+          if (Info.score > Info.high_score) {
+            Info.high_score = Info.score;
+            saveHighScore(Info.high_score);
+          }
         }
 
         if (!snake.isAlive()) {
           State = STATE_GAME_OVER;
+        }
+
+        if ((Info.score >= 5 * Info.level) && Info.level < 10) {
+          Info.level += 1;
+          delayMs = std::max(100, delayMs - 50);  // Уменьшаем задержку, но не менее 100 мс
         }
       }
       break;

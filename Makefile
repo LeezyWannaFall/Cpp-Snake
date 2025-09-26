@@ -64,7 +64,8 @@ $(SNAKE_LIB_NAME): $(SNAKE_OBJ)
 # Исполняемый файл
 $(EXE_NAME): $(GUI_OBJ) $(LIB_NAME) $(SNAKE_LIB_NAME)
 	g++ $(CFLAGS) -o $@ $(GUI_OBJ) -L. -ltetris -L. -lsnake $(LDFLAGS)
-	echo 0 > highscore.txt
+	echo 0 > highscore_tetris.txt
+	echo 0 > highscore_snake.txt
 
 # Основная цель
 all: $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME)
@@ -104,7 +105,7 @@ clang_format:
 	clang-format -i $(LIB_SRC) $(HEADERS)
 
 clean:
-	rm -rf $(BUILD_DIR) $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME) test_exe gcov_exe *.gcno *.gcda *.gcov gcov_report.info gcov_report docs tetris.tar.gz
+	rm -rf $(BUILD_DIR) $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME) test_exe gcov_exe *.gcno *.gcda *.gcov gcov_report.info gcov_report docs tetris.tar.gz highscore_*.txt
 
 .PHONY: all clean test gcov_report
 

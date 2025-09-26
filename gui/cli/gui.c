@@ -80,7 +80,7 @@ int main() {
         if (mode == GAME_SNAKE) {
           game_restart(snake_game);
         } else if (mode == GAME_TETRIS) {
-          userInput(Restart, false); // старая логика для тетриса
+          userInput(Restart, false);
         }
         break;
       case 'P':
@@ -88,7 +88,7 @@ int main() {
         if (mode == GAME_TETRIS)
           userInput(Pause, false);
         else if (mode == GAME_SNAKE && snake_game)
-          game_toggle_pause(snake_game); // 4 = STATE_PAUSE
+          game_toggle_pause(snake_game);
         break;
       case 'T':
       case 't':
@@ -125,13 +125,7 @@ int main() {
       game = updateCurrentState();
     } else if (snake_game) {
       game_update(snake_game);
-      // Получаем поле и инфу для отрисовки
       game.score = game_get_score(snake_game);
-      // ... (можно добавить high_score, level и т.д. если нужно)
-      // Для drawSnake(game) достаточно game.field, который нужно получить из
-      // snake_game Но в вашем wrapper нет функции для получения field напрямую,
-      // поэтому используйте game_get_snake_body и game_get_apple для отрисовки
-      // змейки и яблока
     }
 
     if (game.pause == -1 || (snake_game && game_get_pause(snake_game) == -1)) {
