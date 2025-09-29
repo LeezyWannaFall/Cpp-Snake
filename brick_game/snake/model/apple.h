@@ -20,8 +20,8 @@ class Apple {
   Apple();
 
   Position getPosition() const { return AppleBody; }
-  int getX() { return AppleBody.first; }
-  int getY() { return AppleBody.second; }
+  int getX() const { return AppleBody.first; }
+  int getY() const { return AppleBody.second; }
   bool IsEaten();
   void Respawn(const std::vector<std::pair<int, int>>& snakeBody);
   void SetEaten();

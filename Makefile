@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -g
+CFLAGS = -g -fPIC
 LDFLAGS = -lncurses -lcheck -lm -lsubunit
 GCOV_FLAGS = -fprofile-arcs -ftest-coverage
 
@@ -8,11 +8,11 @@ EXE_NAME = brick_game_cli
 SNAKE_LIB_NAME = libsnake.a
 SNAKE_SRC = brick_game/snake/controller/wrapper.cpp \
             brick_game/snake/model/game.cpp \
-			brick_game/snake/model/snake.cpp \
-			brick_game/snake/model/apple.cpp \
-			brick_game/snake/controller/contoller.cpp
-LIB_NAME = libtetris.a
+            brick_game/snake/model/snake.cpp \
+            brick_game/snake/model/apple.cpp \
+            brick_game/snake/controller/contoller.cpp
 
+LIB_NAME = libtetris.a
 LIB_DIR = brick_game/tetris
 GUI_DIR = gui/cli
 TEST_DIR = tests
@@ -24,6 +24,19 @@ GUI_SRC = $(GUI_DIR)/gui.c
 TEST_SRC = $(TEST_DIR)/test.c
 HEADERS = $(LIB_DIR)/s21_tetris.h
 
+# Qt Desktop build
+QT_DIR = gui/desktop
+QT_SRC = $(QT_DIR)/main_qt.cpp $(QT_DIR)/snakewidget.cpp
+QT_OBJ = $(QT_SRC:%.cpp=$(BUILD_DIR)/%.o)
+QT_EXE = brick_game_qt
+
+# Qt flags (Qt5)
+QT_CFLAGS = $(shell pkg-config --cflags Qt5Widgets)
+QT_LDFLAGS = $(shell pkg-config --libs Qt5Widgets)
+
+MOC = moc
+MOC_SOURCES = $(wildcard $(QT_DIR)/*.h)
+MOC_OBJ = $(MOC_SOURCES:$(QT_DIR)/%.h=$(BUILD_DIR)/%.moc.o)
 
 # Объекты
 LIB_OBJ = $(BUILD_DIR)/s21_tetris.o
@@ -35,13 +48,9 @@ TEST_OBJ = $(BUILD_DIR)/test.o
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-# Компилируем обьекты
+# Компиляция общих .c / .cpp
 $(LIB_OBJ): $(LIB_SRC) $(HEADERS) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-
-# $(SNAKE_OBJ): $(SNAKE_SRC) | $(BUILD_DIR)
-# 	g++ $(CFLAGS) -c $< -o $@
 
 $(GUI_OBJ): $(GUI_SRC) $(HEADERS) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -51,7 +60,17 @@ $(TEST_OBJ): $(TEST_SRC) $(HEADERS) | $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: %.cpp | $(BUILD_DIR)
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(QT_CFLAGS) -c $< -o $@
+
+# moc правило
+$(BUILD_DIR)/%.moc.o: $(QT_DIR)/%.h | $(BUILD_DIR)
+	mkdir -p $(dir $@)
+	$(MOC) $< -o $(BUILD_DIR)/$*.moc.cpp
+	$(CC) $(CFLAGS) $(QT_CFLAGS) -c $(BUILD_DIR)/$*.moc.cpp -o $@
+
+# Desktop (Qt) build
+$(QT_EXE): $(QT_OBJ) $(MOC_OBJ) $(SNAKE_LIB_NAME)
+	$(CC) $(CFLAGS) -o $@ $(QT_OBJ) $(MOC_OBJ) -L. -lsnake $(QT_LDFLAGS)
 
 # Сборка библиотек
 $(LIB_NAME): $(LIB_OBJ)
@@ -60,15 +79,18 @@ $(LIB_NAME): $(LIB_OBJ)
 $(SNAKE_LIB_NAME): $(SNAKE_OBJ)
 	ar rcs $@ $^
 
-
-# Исполняемый файл
+# CLI исполняемый файл
 $(EXE_NAME): $(GUI_OBJ) $(LIB_NAME) $(SNAKE_LIB_NAME)
-	g++ $(CFLAGS) -o $@ $(GUI_OBJ) -L. -ltetris -L. -lsnake $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $(GUI_OBJ) -L. -ltetris -L. -lsnake $(LDFLAGS)
 	echo 0 > highscore_tetris.txt
 	echo 0 > highscore_snake.txt
 
 # Основная цель
-all: $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME)
+all: $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME) $(QT_EXE)
+
+# Qt desktop target
+desktop: $(QT_EXE)
+
 
 install: clean $(EXE_NAME)
 

@@ -26,6 +26,14 @@ void s21::Controller::userInput(UserAction_t action, bool hold) {
           game->setGameState(STATE_MOVE);
         }
         break;
+      case Terminate:
+        game->setGameState(STATE_GAME_OVER);
+        break;
+      case Restart:
+        game->ResetGame();
+        game->setGameState(STATE_START);
+        game->updateCurrentState();
+        break;
       default:
         break;
     }

@@ -11,7 +11,8 @@ typedef enum {
   Right,
   Up,
   Down,
-  Action
+  Action,
+  Restart
 } UserAction_t;
 
 }  // namespace s21
