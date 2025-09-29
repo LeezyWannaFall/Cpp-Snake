@@ -127,7 +127,7 @@ clang_format:
 	clang-format -i $(LIB_SRC) $(HEADERS)
 
 clean:
-	rm -rf $(BUILD_DIR) $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME) test_exe gcov_exe *.gcno *.gcda *.gcov gcov_report.info gcov_report docs tetris.tar.gz highscore_*.txt
+	rm -rf $(BUILD_DIR) $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME) test_exe gcov_exe *.gcno *.gcda *.gcov gcov_report.info gcov_report docs tetris.tar.gz highscore_*.txt brick_game_*
 
 .PHONY: all clean test gcov_report
 

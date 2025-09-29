@@ -1,11 +1,12 @@
 #include <QApplication>
+
 #include "snakewidget.h"
 
 int main(int argc, char *argv[]) {
-    QApplication app(argc, argv);
+  QApplication app(argc, argv);
 
-    SnakeWidget window;
-    window.show();
+  SnakeWidget window;
+  window.show();
 
-    return app.exec();
+  return app.exec();
 }
