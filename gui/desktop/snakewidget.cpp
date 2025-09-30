@@ -13,7 +13,7 @@ SnakeWidget::SnakeWidget(QWidget *parent)
   setFocusPolicy(Qt::StrongFocus);
   setFocus();
   controller.userInput(s21::Restart, false);
-  timer->setInterval(100);
+  timer->setInterval(normalInterval);
   connect(timer, &QTimer::timeout, this, &SnakeWidget::updateGame);
   timer->start();
   restartButton = new QPushButton("Restart", this);
@@ -91,11 +91,6 @@ void SnakeWidget::restartGame() {
   controller.getGame().setGameState(s21::STATE_START);
   controller.getGame().updateCurrentState();
   gameOver = false;
-  if (restartButton) {
-    restartButton->hide();
-    delete restartButton;
-    restartButton = nullptr;
-  }
 }
 
 
@@ -124,6 +119,9 @@ void SnakeWidget::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_P:
       controller.userInput(s21::Pause, false);
       break;
+    case Qt::Key_Space:
+      timer->setInterval(fastInterval);
+      break;
     // case Qt::Key_Q:
     //   controller.userInput(s21::Terminate, false);
     //   break;
@@ -131,6 +129,7 @@ void SnakeWidget::keyPressEvent(QKeyEvent *event) {
 }
 
 void SnakeWidget::keyReleaseEvent(QKeyEvent *event) {
-  // Можно добавить обработку ускорения по пробелу, если реализовано в
-  // контроллере
+  if (event->key() == Qt::Key_Space) {
+    timer->setInterval(normalInterval);
+  }
 }

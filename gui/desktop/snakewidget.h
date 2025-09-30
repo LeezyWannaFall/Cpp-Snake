@@ -27,5 +27,7 @@ class SnakeWidget : public QWidget {
   QPushButton *restartButton;
   QPushButton *menuBtn;
   bool gameOver;
+  int normalInterval = 200;
+  int fastInterval = 20;
   void drawGameOverMenu(QPainter &painter);
 };
