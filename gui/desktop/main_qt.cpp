@@ -1,12 +1,11 @@
-#include <QApplication>
 
-#include "snakewidget.h"
+#include <QApplication>
+#include "gamewidget.h"
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
-
-  SnakeWidget window;
-  window.show();
-
-  return app.exec();
+    GameWidget window;
+    window.show();
+    return app.exec();
 }
+

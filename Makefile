@@ -26,7 +26,11 @@ HEADERS = $(LIB_DIR)/s21_tetris.h
 
 # Qt Desktop build
 QT_DIR = gui/desktop
-QT_SRC = $(QT_DIR)/main_qt.cpp $(QT_DIR)/snakewidget.cpp
+QT_SRC = \
+	$(QT_DIR)/main_qt.cpp \
+	$(QT_DIR)/snakewidget.cpp \
+	$(QT_DIR)/tetriswidget.cpp \
+	$(QT_DIR)/gamewidget.cpp
 QT_OBJ = $(QT_SRC:%.cpp=$(BUILD_DIR)/%.o)
 QT_EXE = brick_game_qt
 
@@ -35,7 +39,7 @@ QT_CFLAGS = $(shell pkg-config --cflags Qt5Widgets)
 QT_LDFLAGS = $(shell pkg-config --libs Qt5Widgets)
 
 MOC = moc
-MOC_SOURCES = $(wildcard $(QT_DIR)/*.h)
+MOC_SOURCES = $(QT_DIR)/snakewidget.h $(QT_DIR)/tetriswidget.h $(QT_DIR)/gamewidget.h
 MOC_OBJ = $(MOC_SOURCES:$(QT_DIR)/%.h=$(BUILD_DIR)/%.moc.o)
 
 # Объекты
@@ -69,8 +73,8 @@ $(BUILD_DIR)/%.moc.o: $(QT_DIR)/%.h | $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(QT_CFLAGS) -c $(BUILD_DIR)/$*.moc.cpp -o $@
 
 # Desktop (Qt) build
-$(QT_EXE): $(QT_OBJ) $(MOC_OBJ) $(SNAKE_LIB_NAME)
-	$(CC) $(CFLAGS) -o $@ $(QT_OBJ) $(MOC_OBJ) -L. -lsnake $(QT_LDFLAGS)
+$(QT_EXE): $(QT_OBJ) $(MOC_OBJ) $(LIB_NAME) $(SNAKE_LIB_NAME)
+	$(CC) $(CFLAGS) -o $@ $(QT_OBJ) $(MOC_OBJ) -L. -ltetris -L. -lsnake $(QT_LDFLAGS)
 
 # Сборка библиотек
 $(LIB_NAME): $(LIB_OBJ)

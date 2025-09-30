@@ -10,7 +10,7 @@ class SnakeWidget : public QWidget {
  public:
   explicit SnakeWidget(QWidget *parent = nullptr);
   ~SnakeWidget();
-
+  void resetGameState();
  protected:
   void paintEvent(QPaintEvent *event) override;
   void keyPressEvent(QKeyEvent *event) override;
@@ -19,12 +19,13 @@ class SnakeWidget : public QWidget {
  private slots:
   void updateGame();
   void restartGame();
-
+  
  private:
   s21::Controller controller;
   QTimer *timer;
   int cellSize;
   QPushButton *restartButton;
+  QPushButton *menuBtn;
   bool gameOver;
   void drawGameOverMenu(QPainter &painter);
 };
