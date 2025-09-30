@@ -86,9 +86,23 @@ void TetrisWidget::drawNextBlock(QPainter &painter, int x, int y) {
 }
 
 void TetrisWidget::drawGameOverMenu(QPainter &painter) {
-    painter.setPen(Qt::red);
-    painter.setFont(QFont("Arial", 20, QFont::Bold));
-    painter.drawText(rect(), Qt::AlignCenter, "Game Over\nPress Restart");
+  painter.setBrush(Qt::black);
+  painter.drawRect(0, 0, width(), height());
+  painter.setPen(Qt::red);
+  QFont font = painter.font();
+  font.setPointSize(20);
+  font.setBold(true);
+  painter.setFont(font);
+  painter.drawText(rect(), Qt::AlignCenter, "GAME OVER");
+
+  font.setPointSize(14);
+  font.setBold(false);
+  painter.setFont(font);
+  painter.setPen(Qt::white);
+  painter.drawText(width() / 2 - 80, height() / 2 + 40,
+                   QString("Score: %1").arg(game.score));
+  painter.drawText(width() / 2 - 80, height() / 2 + 70,
+                   QString("Highscore: %1").arg(game.high_score));
 }
 
 void TetrisWidget::updateGame() {

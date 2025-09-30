@@ -16,6 +16,9 @@ SnakeWidget::SnakeWidget(QWidget *parent)
   timer->setInterval(100);
   connect(timer, &QTimer::timeout, this, &SnakeWidget::updateGame);
   timer->start();
+  restartButton = new QPushButton("Restart", this);
+  restartButton->setGeometry(FIELD_WIDTH * cellSize + 20, 420, 100, 32);
+  connect(restartButton, &QPushButton::clicked, this, &SnakeWidget::restartGame);
 }
 
 SnakeWidget::~SnakeWidget() {
@@ -56,9 +59,7 @@ void SnakeWidget::paintEvent(QPaintEvent *) {
 
   // инфо справа
   painter.setPen(Qt::black);
-  QFont font = painter.font();
-  font.setPointSize(12);
-  painter.setFont(font);
+  painter.setFont(QFont("Arial", 12, QFont::Bold));
   int infoX = FIELD_WIDTH * cellSize + 20;
   painter.drawText(infoX, 30, QString("Score: %1").arg(info.score));
   painter.drawText(infoX, 60, QString("Highscore: %1").arg(info.high_score));
@@ -84,15 +85,6 @@ void SnakeWidget::drawGameOverMenu(QPainter &painter) {
                    QString("Score: %1").arg(info.score));
   painter.drawText(width() / 2 - 80, height() / 2 + 70,
                    QString("Highscore: %1").arg(info.high_score));
-
-  // Кнопка рестарта (только она)
-  if (!restartButton) {
-    restartButton = new QPushButton("Restart", this);
-    restartButton->setGeometry(width() / 2 - 60, height() / 2 + 80, 120, 40);
-    connect(restartButton, &QPushButton::clicked, this,
-            &SnakeWidget::restartGame);
-    restartButton->show();
-  }
 }
 
 void SnakeWidget::restartGame() {
