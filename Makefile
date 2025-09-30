@@ -18,6 +18,13 @@ GUI_DIR = gui/cli
 TEST_DIR = tests
 BUILD_DIR = build
 
+# Google Test
+GTEST_CFLAGS = $(shell pkg-config --cflags gtest)
+GTEST_LDFLAGS = $(shell pkg-config --libs gtest)
+TEST_SNAKE_SRC = tests/test_snake.cpp
+TEST_SNAKE_OBJ = $(BUILD_DIR)/test_snake.o
+TEST_SNAKE_EXE = test_snake_exe
+
 # Файлы
 LIB_SRC = $(LIB_DIR)/s21_tetris.c
 GUI_SRC = $(GUI_DIR)/gui.c
@@ -62,6 +69,12 @@ $(GUI_OBJ): $(GUI_SRC) $(HEADERS) | $(BUILD_DIR)
 $(TEST_OBJ): $(TEST_SRC) $(HEADERS) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Компиляция теста змейки
+$(TEST_SNAKE_OBJ): $(TEST_SNAKE_SRC)
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(GTEST_CFLAGS) -c $< -o $@
+
+
 $(BUILD_DIR)/%.o: %.cpp | $(BUILD_DIR)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(QT_CFLAGS) -c $< -o $@
@@ -96,16 +109,20 @@ all: $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME) $(QT_EXE)
 desktop: $(QT_EXE)
 
 
-install: clean $(EXE_NAME)
+install: clean $(EXE_NAME) $(QT_EXE)
 
 uninstall: clean
 
 # Сборка и запуск тестов
 
-test: $(TEST_OBJ) $(LIB_NAME) $(SNAKE_LIB_NAME)
-	g++ $(CFLAGS) -o test_exe $(TEST_OBJ) -L. -ltetris -L. -lsnake $(LDFLAGS)
-	./test_exe
-	echo 0 > highscore.txt
+test_tetris: $(TEST_OBJ) $(LIB_NAME)
+	gcc $(CFLAGS) -o test_tetris_exe $(TEST_OBJ) -L. -ltetris $(LDFLAGS)
+	./test_tetris_exe
+
+# Сборка и запуск тестов на змейку
+test_snake: $(TEST_SNAKE_OBJ) $(SNAKE_LIB_NAME)
+	$(CC) $(CFLAGS) -o $(TEST_SNAKE_EXE) $(TEST_SNAKE_OBJ) -L. -lsnake $(GTEST_LDFLAGS) -lpthread
+	./$(TEST_SNAKE_EXE)
 
 # Gcov отчет
 gcov_report: clean
@@ -120,7 +137,7 @@ dvi:
 
 # Арихв
 dist:
-	tar -czvf tetris.tar.gz \
+	tar -czvf brick_game.tar.gz \
 	Makefile \
 	brick_game \
 	gui \
@@ -131,7 +148,7 @@ clang_format:
 	clang-format -i $(LIB_SRC) $(HEADERS)
 
 clean:
-	rm -rf $(BUILD_DIR) $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME) test_exe gcov_exe *.gcno *.gcda *.gcov gcov_report.info gcov_report docs tetris.tar.gz highscore_*.txt brick_game_*
+	rm -rf $(BUILD_DIR) $(LIB_NAME) $(SNAKE_LIB_NAME) $(EXE_NAME) test_tetris_exe test_snake_exe gcov_exe *.gcno *.gcda *.gcov gcov_report.info gcov_report docs tetris.tar.gz highscore_*.txt brick_game_*
 
 .PHONY: all clean test gcov_report
 
