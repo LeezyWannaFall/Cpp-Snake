@@ -29,10 +29,10 @@ GameWidget::GameWidget(QWidget *parent)
 
     // Back to menu buttons
     QPushButton *backBtnSnake = new QPushButton("Menu", snakeWidget);
-    backBtnSnake->setGeometry(320, 10, 60, 32);
+    backBtnSnake->setGeometry(260, 380, 100, 32);
     connect(backBtnSnake, &QPushButton::clicked, this, &GameWidget::showMenu);
     QPushButton *backBtnTetris = new QPushButton("Menu", tetrisWidget);
-    backBtnTetris->setGeometry(320, 10, 60, 32);
+    backBtnTetris->setGeometry(260, 380, 100, 32);
     connect(backBtnTetris, &QPushButton::clicked, this, &GameWidget::showMenu);
 }
 

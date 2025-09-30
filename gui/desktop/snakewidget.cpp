@@ -16,14 +16,6 @@ SnakeWidget::SnakeWidget(QWidget *parent)
   timer->setInterval(100);
   connect(timer, &QTimer::timeout, this, &SnakeWidget::updateGame);
   timer->start();
-  // Кнопка выхода в меню (одна на всё время)
-  menuBtn = new QPushButton("Menu", this);
-  menuBtn->setGeometry(FIELD_WIDTH * cellSize + 20, 10, 100, 32);
-  connect(menuBtn, &QPushButton::clicked, this, [this]() {
-      QWidget *p = parentWidget();
-      if (p) p->setFocus();
-      QMetaObject::invokeMethod(parentWidget(), "showMenu");
-  });
 }
 
 SnakeWidget::~SnakeWidget() {
@@ -63,7 +55,7 @@ void SnakeWidget::paintEvent(QPaintEvent *) {
                       cellSize);
 
   // инфо справа
-  painter.setPen(Qt::white);
+  painter.setPen(Qt::black);
   QFont font = painter.font();
   font.setPointSize(12);
   painter.setFont(font);

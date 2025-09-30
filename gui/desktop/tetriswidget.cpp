@@ -60,7 +60,7 @@ void TetrisWidget::paintEvent(QPaintEvent *) {
     }
 
     // Draw info
-    painter.setPen(Qt::white);
+    painter.setPen(Qt::black);
     painter.setFont(QFont("Arial", 12, QFont::Bold));
     painter.drawText(FIELD_WIDTH * cellSize + 20, 30, QString("Score: %1").arg(game.score));
     painter.drawText(FIELD_WIDTH * cellSize + 20, 60, QString("Level: %1").arg(game.level));
