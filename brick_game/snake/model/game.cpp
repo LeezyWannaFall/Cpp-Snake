@@ -77,7 +77,7 @@ s21::GameInfo_t s21::Game::updateCurrentState() {
           }
         }
 
-        if (!snake.isAlive()) {
+        if (!snake.isAlive() || Info.score == 200) {
           State = STATE_GAME_OVER;
         }
 
