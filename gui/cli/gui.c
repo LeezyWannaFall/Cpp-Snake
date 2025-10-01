@@ -70,6 +70,7 @@ int main() {
           printf("Exiting...\n");
           return 0;
         } else {
+          game_destroy(snake_game);
           endwin();
           printf("Exiting...\n");
           return 0;
